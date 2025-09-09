@@ -1,0 +1,12 @@
+{
+    "id": 1001,
+    "name": "Iron Sword",
+    "type": "weapon",
+    "tradable": true,
+    "icon_pos": [1, 5],
+    "description": "An iron sword that can be used to attack enemies.",
+    "price": 10,
+    "effect": {
+        "damage": 10
+    }
+}

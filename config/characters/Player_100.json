@@ -1,0 +1,33 @@
+{
+    "id": 100,
+    "name": "Player",
+    "role": "Warrior",
+    "attributes": {
+        "level": 1,
+        "health": 100
+    },
+    "inventory": [
+        {"Gold_Coin": 100},
+        {"Health_Potion": 10}
+    ],
+    "frontend_config": {
+        "sprite": "/assets/characters/player.png",
+        "position": {"x": 960, "y": 960},
+        "scale": 1.0,
+        "animations": {
+            "idle": "player_idle",
+            "walk": "player_walk",
+            "attack": "player_attack"
+        },
+        "interaction_radius": 48,
+        "dialogue_style": null
+    },
+    "gameplay_config": {
+        "can_move": true,
+        "movement_speed": 200,
+        "respawn_time": 5,
+        "interaction_type": "player_controlled",
+        "is_quest_giver": false,
+        "shop_keeper": false
+    }
+}

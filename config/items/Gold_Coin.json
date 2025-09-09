@@ -1,0 +1,12 @@
+{
+    "id": 1000,
+    "name": "Gold Coin",
+    "type": "others",
+    "tradable": true,
+    "icon_pos": [7, 12],
+    "description": "The currency of the game.",
+    "price": 1,
+    "effect": {
+        "None": 0
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "id": 101,
+    "name": "Steve",
+    "role": "Merchant",
+    "attributes": {
+        "level": 1,
+        "health": 100,
+        "relationship": 0.0
+    },
+    "inventory": [
+        {"Gold_Coin": 100},
+        {"Wood_Shield": 1},
+        {"Iron_Sword": 1},
+        {"Gold_Sword": 1},
+        {"Health_Potion": 10}
+    ],
+    "ai_agent_config": {
+        "system_message_path": "npc_101_prompt.txt",
+        "tools": [
+            "check_relationship",
+            "check_shop_shelf",
+            "check_inventory",
+            "make_trade",
+            "memory_recall"
+        ]
+    },
+    "frontend_config": {
+        "sprite": "/assets/characters/merchant.png",
+        "position": {"x": 120, "y": 900},
+        "scale": 1.0,
+        "animations": {
+            "idle": "merchant_idle",
+            "walk": "merchant_walk"
+        },
+        "interaction_radius": 64,
+        "dialogue_style": "friendly_merchant"
+    },
+    "gameplay_config": {
+        "can_move": false,
+        "movement_speed": 60,
+        "respawn_time": 0,
+        "interaction_type": "dialogue_and_trade",
+        "is_quest_giver": false,
+        "shop_keeper": true
+    }
+}

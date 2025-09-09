@@ -1,0 +1,12 @@
+{
+    "id": 2001,
+    "name": "Health Potion",
+    "type": "consumable",
+    "tradable": true,
+    "icon_pos": [0, 9],
+    "description": "A potion that restores 20 health points.",
+    "price": 2,
+    "effect": {
+        "healing": 20
+    }
+}

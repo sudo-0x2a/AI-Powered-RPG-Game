@@ -1,0 +1,12 @@
+{
+    "id": 1002,
+    "name": "Gold Sword",
+    "type": "weapon",
+    "tradable": true,
+    "icon_pos": [4, 5],
+    "description": "A golden sword that can be used to attack enemies.",
+    "price": 100,
+    "effect": {
+        "damage": 25
+    }
+}

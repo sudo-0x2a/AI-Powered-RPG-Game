@@ -1,0 +1,12 @@
+{
+    "id": 1003,
+    "name": "Wood Shield",
+    "type": "armor",
+    "tradable": true,
+    "icon_pos": [0, 6],
+    "description": "A wooden shield that can be used to block attacks.",
+    "price": 10,
+    "effect": {
+        "armor": 8
+    }
+}
