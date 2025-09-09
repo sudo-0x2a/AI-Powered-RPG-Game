@@ -9,7 +9,7 @@ First upload: 09/08/2025
 [![Phaser.js](https://img.shields.io/badge/Phaser.js-3.90.0-orange.svg)](https://phaser.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> Explore a RPG game engine that brings NPCs to life using Large Language Models (LLMs) with persistent memory, intelligent interaction with the game engine, and dynamic storytelling.  
+> Explore a RPG game engine that brings NPCs to life using Large Language Models (LLMs) with persistent memory, intelligently interacting with the game engine, and dynamic storytelling.  
 *This project is not a complete game. It is just a demo.*
 
 ## Features
