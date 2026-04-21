@@ -1,6 +1,6 @@
 {
     "id": 100,
-    "name": "Player",
+    "name": "Allen",
     "role": "Warrior",
     "attributes": {
         "level": 1,
@@ -16,8 +16,7 @@
         "scale": 1.0,
         "animations": {
             "idle": "player_idle",
-            "walk": "player_walk",
-            "attack": "player_attack"
+            "walk": "player_walk"
         },
         "interaction_radius": 48,
         "dialogue_style": null

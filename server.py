@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Backend Server Entry Point
 
@@ -16,14 +15,30 @@ The server will be available at:
 import uvicorn
 import sys
 import os
+from dotenv import load_dotenv
 
 # Add the src directory to the Python path so we can import modules
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 def main():
     """Main entry point for the backend server"""
+    # Load environment variables from .env file if present
+    load_dotenv()
+
     try:
         print("🚀 Starting RPG LLM Backend Server...")
+        
+        # Check for Model Name
+        if not os.getenv("MODEL_NAME"):
+            print("\n❌ Error: MODEL_NAME is not set in environment variables or .env file.")
+            print("   Please configure MODEL_NAME in your .env file.")
+            print("   Example .env content:")
+            print("   MODEL_NAME=gpt-4o-mini")
+            sys.exit(1)
+        
+        model_name = os.getenv("MODEL_NAME")
+        print(f"   ✅ Model set to: {model_name}\n")
+        
         print("🌐 Web Game will be available at: http://localhost:8000")
         print("📚 API Documentation at: http://localhost:8000/docs")
         print("🛑 Press Ctrl+C to stop the server")

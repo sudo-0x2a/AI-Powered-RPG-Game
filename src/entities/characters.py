@@ -13,11 +13,7 @@ class Character:
         self.role = self.config["role"]
         self.attributes = self.config["attributes"]
         self.inventory = self._load_inventory()
-        
-        # Load frontend configuration
         self.frontend_config = self.config.get("frontend_config", {})
-        
-        # Load gameplay configuration  
         self.gameplay_config = self.config.get("gameplay_config", {})
 
     def show_stats(self):

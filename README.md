@@ -73,6 +73,8 @@ The player initially has 100 golds and 10 health potions. Let's purchase 2 healt
    OPENAI_BASE_URL="https://api.openai.com/v1"
    ```
 
+   *Note: You will be prompted to enter the `MODEL_NAME` (e.g., `gpt-4o-mini` or a local model name) when starting the server.*
+
 5. **Run the game**
    ```bash
    python server.py

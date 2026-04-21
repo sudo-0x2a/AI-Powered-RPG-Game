@@ -10,6 +10,7 @@ from datetime import datetime
 from .event_handler import EventHandler, GameEvents
 from .state_manager import StateManager
 from src.entities.characters import NPC, Player
+from src.entities.items import Item
 from src.ai_agents.agents import NPCAgent
 
 logger = logging.getLogger(__name__)
@@ -29,7 +30,8 @@ class GameEngine:
         self.players: List[Player] = []
         self.all_characters: List = []
         self.characters = {}
-        self.items = {}
+        self.items = {}  # Map of item_id -> Item object
+        self.items_by_name = {} # Map of lowercase item name -> Item object
         self.agents: Dict[int, NPCAgent] = {}
         
         # AI system reference (will be set by AI module)
@@ -55,6 +57,9 @@ class GameEngine:
             # Initialize core systems
             self._initialize_core_systems()
             
+            # Load items first so characters can reference them if needed
+            self._load_all_items()
+
             # Load characters and AI agents
             self._load_all_characters()
             self._load_agents()
@@ -109,6 +114,26 @@ class GameEngine:
             'timestamp': datetime.now(),
             'config_directory': self.config_directory
         })
+
+    def _load_all_items(self) -> None:
+        """Load all item definitions from config directory"""
+        items_path = os.path.join(self.config_directory, "items")
+        if not os.path.exists(items_path):
+            logger.warning(f"Items directory not found: {items_path}")
+            return
+
+        item_files = glob.glob(os.path.join(items_path, "*.json"))
+        
+        for config_path in item_files:
+            try:
+                item = Item(config_path)
+                self.items[item.id] = item
+                self.items_by_name[item.name.lower()] = item
+                logger.debug(f"Loaded Item: {item.name} (ID: {item.id})")
+            except Exception as e:
+                logger.error(f"Error loading item from {config_path}: {e}")
+                
+        logger.info(f"Loaded {len(self.items)} Items")
 
     def _load_all_characters(self) -> None:
         """Load character configs from files or per-NPC folders into NPC/Player objects"""
@@ -267,6 +292,11 @@ class GameEngine:
     def chat_with_npc(self, npc_id: int, player_id: int, message: str) -> str:
         agent = self.get_agent_by_npc_id(npc_id)
         if not agent:
+            # Check if NPC exists to distinguish between invalid ID and initialization failure
+            npc = self.get_npc_by_id(npc_id)
+            if npc:
+                logger.error(f"Agent missing for existing NPC {npc.name} (ID: {npc_id}). Likely initialization failure due to missing configuration (e.g., MODEL_NAME).")
+                return "This character is not available for conversation. (System Error: Agent not initialized)"
             return "This character is not available for conversation."
         try:
             self.record_interaction(npc_id, player_id)

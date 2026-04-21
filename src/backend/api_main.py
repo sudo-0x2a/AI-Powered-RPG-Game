@@ -27,7 +27,7 @@ except Exception:
 from ..core.game_engine import GameEngine
 from ..entities.characters import Player
 from ..core.game_logger import game_logger
-from ..ai_agents.agents import SummaryAgent
+from ..ai_agents.agents import SummaryAgent, check_llm_connection
 import logging
 
 # Set up logging
@@ -53,6 +53,12 @@ app.add_middleware(
 engine = GameEngine()
 if not engine.initialize():
     raise RuntimeError("Failed to initialize game engine")
+
+# Check LLM connection
+if not check_llm_connection():
+    logger.warning("⚠️ LLM connection failed! NPCs may not respond.")
+else:
+    logger.info("✅ LLM connection confirmed.")
 
 # Initialize SummaryAgent (singleton for server)
 summary_agent = SummaryAgent()
@@ -241,10 +247,23 @@ def _summarize_and_persist(npc_id: int, player_id: int):
             return
         try:
             current_state = agent.npc_workflow.get_state(agent.config)
-            messages = current_state.values.get("messages") if current_state else []
+            messages = (current_state.values.get("messages") or []) if current_state else []
         except Exception as e:
             logger.error(f"Background summarization: failed to read messages for NPC {npc_id}: {e}")
             messages = []
+        
+        # Check if there are any meaningful messages (Human or AI)
+        # System messages alone should not trigger a summary
+        interaction_count = 0
+        for msg in messages:
+            msg_type = getattr(msg, "type", None)
+            if msg_type in ["human", "ai"]:
+                interaction_count += 1
+        
+        if interaction_count == 0:
+            logger.info(f"Background summarization: skipping NPC {npc_id} (no interaction history)")
+            return
+
         summary = summary_agent.summarize(messages, npc_name=agent.npc.name, npc_role=agent.npc.role)
         try:
             memory_id = agent.save_conversation_memory(summary, player_id)

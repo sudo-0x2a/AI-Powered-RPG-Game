@@ -15,6 +15,7 @@
         {"Health_Potion": 10}
     ],
     "ai_agent_config": {
+        "memory_type": "graph",
         "system_message_path": "npc_101_prompt.txt",
         "tools": [
             "check_relationship",

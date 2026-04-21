@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 import logging
 import json
+import uuid
 
 logger = logging.getLogger(__name__)
 
@@ -17,6 +18,7 @@ class BaseEvent:
     event_type: str
     timestamp: datetime
     data: Dict[str, Any]
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     processed: bool = False
     
     def __post_init__(self):
