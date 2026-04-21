@@ -2,18 +2,17 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
-import os
-import json
-from pathlib import Path
 from pydantic import BaseModel
 from typing import Optional
 from dotenv import load_dotenv
 from fastapi.responses import Response
+import os
+import os as _os_env
 import atexit
 
 load_dotenv()
 # Reduce tokenizer multiprocessing/semaphore usage to avoid resource tracker warnings
-import os as _os_env
+
 _os_env.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 try:
     import torch as _torch
@@ -23,7 +22,7 @@ try:
         pass
 except Exception:
     pass
-# Import your existing game system
+
 from ..core.game_engine import GameEngine
 from ..entities.characters import Player
 from ..core.game_logger import game_logger
@@ -43,7 +42,7 @@ app = FastAPI(
 # Add CORS middleware to allow frontend to communicate with backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify your frontend domain
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
